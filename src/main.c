@@ -91,7 +91,7 @@ void render_color_buffer(void) {
 void clear_color_buffer(uint32_t color) {
   for (int y = 0; y < window_height; y++) {
     for (int x = 0; x < window_width; x++) {
-      color_buffer[(window_height * y ) + x] = color;
+      color_buffer[(window_width * y ) + x] = color;
     }
   }
 }
