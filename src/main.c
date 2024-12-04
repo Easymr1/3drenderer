@@ -52,7 +52,7 @@ bool initialize_window(void) {
   // SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
   // MacOS patch when using multi monitor 
   SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-  
+
   return true;
 }
 
@@ -100,6 +100,14 @@ void render_color_buffer(void) {
     SDL_RenderCopy(renderer, color_buffer_texture, NULL, NULL);
 }
 
+void draw_grid(void) {
+  for(int y = 0; y < window_height; y += 10) {
+    for(int x = 0; x < window_width; x += 10) {
+      color_buffer[(y * window_width) + x ] = 0xFF333333;
+    }
+  }
+}
+
 void clear_color_buffer(uint32_t color) {
   for (int y = 0; y < window_height; y++) {
     for (int x = 0; x < window_width; x++) {
@@ -112,8 +120,10 @@ void render(void) {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
+    draw_grid();
+
     render_color_buffer();
-    clear_color_buffer(0xFFFFFF00);
+    clear_color_buffer(0xFF000000);
 
     SDL_RenderPresent(renderer);
 }
